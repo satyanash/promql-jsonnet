@@ -23,7 +23,11 @@ local testCases = basicTests + aggregateTests + [
 ];
 
 local testResults = std.map(runTest, testCases);
+
 local failures = std.filter(function(result) ! result.success, testResults);
 local failureCount = std.length(failures);
 
-if failureCount > 0 then "There are %s test failures." % failureCount else "OK"
+local successes = std.filter(function(result) result.success, testResults);
+local successCount = std.length(successes);
+
+if failureCount > 0 then "There are %s test failures." % failureCount else "OK - %s Tests" % successCount
