@@ -44,13 +44,13 @@ promql.new("some_metric_name").sum(by=["host", "version"])
 | Function                       | Support            |
 |--------------------------------|--------------------|
 | `sum(instant-vector)`          | :heavy_check_mark: |
-| `min(instant-vector)`          | :construction:     |
-| `max(instant-vector)`          | :construction:     |
-| `avg(instant-vector)`          | :construction:     |
-| `group(instant-vector)`        | :construction:     |
-| `stddev(instant-vector)`       | :construction:     |
-| `stdvar(instant-vector)`       | :construction:     |
-| `count(instant-vector)`        | :construction:     |
+| `min(instant-vector)`          | :heavy_check_mark: |
+| `max(instant-vector)`          | :heavy_check_mark: |
+| `avg(instant-vector)`          | :heavy_check_mark: |
+| `group(instant-vector)`        | :heavy_check_mark: |
+| `stddev(instant-vector)`       | :heavy_check_mark: |
+| `stdvar(instant-vector)`       | :heavy_check_mark: |
+| `count(instant-vector)`        | :heavy_check_mark: |
 | `count_values(instant-vector)` | :construction:     |
 | `bottomk(instant-vector)`      | :construction:     |
 | `topk(instant-vector)`         | :construction:     |

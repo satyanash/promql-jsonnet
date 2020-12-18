@@ -18,12 +18,6 @@ local range(interval, resolution="") = {
     withFuncTemplate(funcTemplate):: self {
       functionTemplates+: [funcTemplate],
     },
-
-    aggr_clause(byLabels, withoutLabels)::
-      if byLabels != [] then std.format(" by (%s) ", std.join(",", byLabels))
-        else if withoutLabels != [] then std.format(" without (%s) ", std.join(",", withoutLabels))
-          else "",
-    sum(by=[], without=[]):: self.withFuncTemplate("sum" + self.aggr_clause(by, without) + "(%s)"),
     delta(interval, resolution):: self.withFuncTemplate("delta(%s" + range(interval, resolution).fmt() + ")"),
 
     runTemplate(query, funcTemplate):: std.format(funcTemplate, query),
@@ -31,6 +25,21 @@ local range(interval, resolution="") = {
 
     baseQuery():: "%s%s" % [metricName, self.labelExpr()],
     build():: self.applyFunctions(self.baseQuery()),
+
+    // Aggregate Functions
+    aggr_clause(byLabels, withoutLabels)::
+      if byLabels != [] then std.format(" by (%s) ", std.join(",", byLabels))
+        else if withoutLabels != [] then std.format(" without (%s) ", std.join(",", withoutLabels))
+          else "",
+
+    sum(by=[], without=[]):: self.withFuncTemplate("sum" + self.aggr_clause(by, without) + "(%s)"),
+    min(by=[], without=[]):: self.withFuncTemplate("min" + self.aggr_clause(by, without) + "(%s)"),
+    max(by=[], without=[]):: self.withFuncTemplate("max" + self.aggr_clause(by, without) + "(%s)"),
+    avg(by=[], without=[]):: self.withFuncTemplate("avg" + self.aggr_clause(by, without) + "(%s)"),
+    group(by=[], without=[]):: self.withFuncTemplate("group" + self.aggr_clause(by, without) + "(%s)"),
+    stddev(by=[], without=[]):: self.withFuncTemplate("stddev" + self.aggr_clause(by, without) + "(%s)"),
+    stdvar(by=[], without=[]):: self.withFuncTemplate("stdvar" + self.aggr_clause(by, without) + "(%s)"),
+    count(by=[], without=[]):: self.withFuncTemplate("count" + self.aggr_clause(by, without) + "(%s)"),
 
     // Instant Vector Functions
     abs():: self.withFuncTemplate("abs(%s)"),
