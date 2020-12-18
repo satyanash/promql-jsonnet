@@ -1,5 +1,5 @@
 {
-  new():: {
-    build():: ""
+  new(metricName):: {
+    build():: "%s" % metricName,
   }
 }
