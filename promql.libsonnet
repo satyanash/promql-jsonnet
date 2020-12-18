@@ -22,6 +22,15 @@
         else if self.range.resolution == "" then '[%s]' % self.range.interval
           else '[%s:%s]' % [self.range.interval, self.range.resolution],
 
-    build():: "%s%s%s" % [metricName, self.labelExpr(), self.rangeStr()],
+    functions:: [],
+    withFunc(func):: self {
+      functions+: [func],
+    },
+    sum():: self.withFunc("sum"),
+    applyFunction(query, func):: std.format('%s(%s)', [func, query]),
+    applyFunctions(query):: std.foldl(self.applyFunction, self.functions, query),
+
+    baseQuery():: "%s%s%s" % [metricName, self.labelExpr(), self.rangeStr()],
+    build():: self.applyFunctions(self.baseQuery()),
   }
 }

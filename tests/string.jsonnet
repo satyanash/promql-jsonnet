@@ -25,6 +25,10 @@ local testCases = [
   ["it supports range intervals with a resolution",
     promql.new("foobar_whatever").addLabels({environment:"staging"}).withRange("5m", "5m").build(),
     'foobar_whatever{environment="staging"}[5m:5m]'],
+
+  ["it supports the sum function",
+    promql.new("foobar_whatever").addLabels({environment:"staging"}).sum().build(),
+    'sum(foobar_whatever{environment="staging"})'],
 ];
 
 local testResults = std.map(runTest, testCases);
