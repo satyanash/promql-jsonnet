@@ -19,7 +19,11 @@ local range(interval, resolution="") = {
       functionTemplates+: [funcTemplate],
     },
 
-    sum():: self.withFuncTemplate("sum(%s)"),
+    aggr_clause(byLabels, withoutLabels)::
+      if byLabels != [] then std.format(" by (%s) ", std.join(",", byLabels))
+        else if withoutLabels != [] then std.format(" without (%s) ", std.join(",", withoutLabels))
+          else "",
+    sum(by=[], without=[]):: self.withFuncTemplate("sum" + self.aggr_clause(by, without) + "(%s)"),
     delta(interval, resolution):: self.withFuncTemplate("delta(%s" + range(interval, resolution).fmt() + ")"),
 
     runTemplate(query, funcTemplate):: std.format(funcTemplate, query),

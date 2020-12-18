@@ -33,6 +33,14 @@ Below tables list out the support for the various PromQL operators and functions
 
 ### Aggregation operators
 
+These support additional clauses like `by` and `without`. For eg:
+
+``` promql
+promql.new("some_metric_name").sum(by=["host", "version"])
+
+// Output: sum by (host,version) (some_metric_name)
+```
+
 | Function                       | Support            |
 |--------------------------------|--------------------|
 | `sum(instant-vector)`          | :heavy_check_mark: |
