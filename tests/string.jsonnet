@@ -2,7 +2,7 @@ local promql = import "../promql.libsonnet";
 
 local runTest(t) = {
   result:: t[2] == t[1],
-  success: if self.result then self.result else std.trace("FAILED: %s - EXPECTED: %s - ACTUAL: %s" % [t[0], t[2], t[1]], self.result),
+  success: if self.result then self.result else std.trace("FAILED: %s \n - EXPECTED: %s \n - ACTUAL:   %s" % [t[0], t[2], t[1]], self.result),
 };
 
 local testCases = [
