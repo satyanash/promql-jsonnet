@@ -25,6 +25,10 @@ local testCases = [
   ["it supports range vector functions like `delta`",
     promql.new("foobar_whatever").addLabels({environment:"staging"}).delta("5m", "5m").build(),
     'delta(foobar_whatever{environment="staging"}[5m:5m])'],
+
+  ["it supports function composition in the given order",
+    promql.new("foobar_whatever").addLabels({environment:"staging"}).sum().delta("5m", "5m").build(),
+    'delta(sum(foobar_whatever{environment="staging"})[5m:5m])'],
 ];
 
 local testResults = std.map(runTest, testCases);
