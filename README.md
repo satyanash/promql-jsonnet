@@ -1,6 +1,6 @@
-# `jsonnet-promql`
+# `promql-jsonnet`
 
-Build PromQL queries with jsonnet.
+Build [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) queries with [Jsonnet](https://jsonnet.org).
 This is especially useful, when coupled with the [prometheus target](https://grafana.github.io/grafonnet-lib/api-docs/#prometheustarget) in [`grafonnet`](https://github.com/grafana/grafonnet-lib/).
 
 ## Usage
