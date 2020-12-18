@@ -21,6 +21,10 @@ local testCases = [
   ["it supports appending labels",
     promql.new("foobar_whatever").addLabels({environment:"staging"}).addLabels({success:"true"}).build(),
     function(q) q == 'foobar_whatever{environment="staging",success="true"}'],
+
+  ["it supports range intervals",
+    promql.new("foobar_whatever").addLabels({environment:"staging"}).withRange("5m").build(),
+    function(q) q == 'foobar_whatever{environment="staging"}[5m]'],
 ];
 
 {
