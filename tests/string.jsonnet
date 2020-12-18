@@ -25,6 +25,10 @@ local testCases = [
   ["it supports range intervals",
     promql.new("foobar_whatever").addLabels({environment:"staging"}).withRange("5m").build(),
     function(q) q == 'foobar_whatever{environment="staging"}[5m]'],
+
+  ["it supports range intervals with a resolution",
+    promql.new("foobar_whatever").addLabels({environment:"staging"}).withRange("5m", "5m").build(),
+    function(q) q == 'foobar_whatever{environment="staging"}[5m:5m]'],
 ];
 
 {

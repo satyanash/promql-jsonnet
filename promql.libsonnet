@@ -9,13 +9,18 @@
 
     range:: {
       interval:: "",
+      resolution:: "",
     },
-    withRange(interval):: self {
+    withRange(interval, resolution=""):: self {
       range+: {
         interval: interval,
+        resolution: resolution,
       },
     },
-    rangeStr():: if self.range.interval == "" then "" else '[%s]' % self.range.interval,
+    rangeStr()::
+      if self.range.interval == "" then ""
+        else if self.range.resolution == "" then '[%s]' % self.range.interval
+          else '[%s:%s]' % [self.range.interval, self.range.resolution],
 
     build():: "%s%s%s" % [metricName, self.labelExpr(), self.rangeStr()],
   }
