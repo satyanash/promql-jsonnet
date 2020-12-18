@@ -4,13 +4,31 @@ Build PromQL queries with jsonnet.
 
 ## Usage
 
+Usage is very natural, if you know what you're looking to construct.
+For example, let's construct a PromQL for a counter:
+
+``` promql
+delta(sum(your_application_http_requests{environment="staging",success="true"})[5m:5m])
+```
+
+The corresponding usage in jsonnet would look something like this:
+
 ``` jsonnet
 local promql = import "promql.libsonnet";
 
-promql.query()
+promql.new("your_application_http_requests")
+    .addLabels({
+        environment: "staging",
+        success: "true",
+    })
+    .sum()
+    .delta("5m", "5m")
+    .build()
 ```
 
 ## PromQL Support
+
+Below tables list out the support for the various PromQL operators and functions.
 
 ### Aggregation operators
 
