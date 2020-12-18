@@ -18,7 +18,7 @@ The corresponding usage in jsonnet would look something like this:
 local promql = import "promql.libsonnet";
 
 promql.new("your_application_http_requests")
-    .addLabels({
+    .withLabels({
         environment: "staging",
         success: "true",
     })

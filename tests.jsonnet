@@ -10,15 +10,15 @@ local runTest(t) = {
 
 local testCases = basicTests + aggregateTests + [
   ["it supports instant vector functions like `abs`",
-    promql.new("foobar_whatever").addLabels({environment:"staging"}).abs().build(),
+    promql.new("foobar_whatever").withLabels({environment:"staging"}).abs().build(),
     'abs(foobar_whatever{environment="staging"})'],
 
   ["it supports range vector functions like `delta`",
-    promql.new("foobar_whatever").addLabels({environment:"staging"}).delta("5m", "5m").build(),
+    promql.new("foobar_whatever").withLabels({environment:"staging"}).delta("5m", "5m").build(),
     'delta(foobar_whatever{environment="staging"}[5m:5m])'],
 
   ["it supports function composition in the given order",
-    promql.new("foobar_whatever").addLabels({environment:"staging"}).abs().delta("5m", "5m").build(),
+    promql.new("foobar_whatever").withLabels({environment:"staging"}).abs().delta("5m", "5m").build(),
     'delta(abs(foobar_whatever{environment="staging"})[5m:5m])'],
 ];
 

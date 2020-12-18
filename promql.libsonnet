@@ -7,7 +7,7 @@ local range(interval, resolution="") = {
 {
   new(metricName):: {
     labels:: {},
-    addLabels(labels):: self {
+    withLabels(labels):: self {
       labels+: labels
     },
     labelString():: std.join(',', [std.format('%s="%s"', [k, self.labels[k]]) for k in std.objectFields(self.labels)]),
