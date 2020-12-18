@@ -1,17 +1,28 @@
 local promql = import "../promql.libsonnet";
 
+local runTest(t) = {
+  success: t[2](t[1]),
+  test: if self.success then t[0] else std.trace("FAILED: %s" % t[0], t[0]),
+};
+
+local testCases = [
+  ["it returns a string",
+    promql.new("foobar_whatever").build(),
+    function(q) std.isString(q)],
+
+  ["it has a metric name",
+    promql.new("foobar_whatever").build(),
+    function(q) q == "foobar_whatever"],
+
+  ["it supports labels",
+    promql.new("foobar_whatever").addLabels({environment:"staging"}).build(),
+    function(q) q == 'foobar_whatever{environment="staging"}'],
+
+  ["it supports appending labels",
+    promql.new("foobar_whatever").addLabels({environment:"staging"}).addLabels({success:"true"}).build(),
+    function(q) q == 'foobar_whatever{environment="staging",success="true"}'],
+];
+
 {
-  isString: if std.isString(promql.new("foobar_whatever").build())
-  then true else error "output is not a string",
-
-  hasMetricName: if promql.new("foobar_whatever").build() == "foobar_whatever"
-  then true else error "output does not match metric name",
-
-  itSupportsLabels: if promql.new("foobar_whatever").addLabels({environment:"staging"}).build()
-  == 'foobar_whatever{environment="staging"}'
-  then true else error "output does not have labels added",
-
-  itSupportsAddingLabels: if promql.new("foobar_whatever").addLabels({environment:"staging"}).addLabels({success:"true"}).build()
-  == 'foobar_whatever{environment="staging",success="true"}' then true
-  else error "output does not have labels added",
+    testResults: std.map(runTest, testCases),
 }
