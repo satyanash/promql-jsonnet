@@ -27,5 +27,8 @@ local range(interval, resolution="") = {
 
     baseQuery():: "%s%s" % [metricName, self.labelExpr()],
     build():: self.applyFunctions(self.baseQuery()),
+
+    // Instant Vector Functions
+    abs():: self.withFuncTemplate("abs(%s)"),
   }
 }

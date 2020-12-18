@@ -50,26 +50,26 @@ Below tables list out the support for the various PromQL operators and functions
 
 ### Instant Vector Functions
 
-| Function                                                        | Support        |
-|-----------------------------------------------------------------|----------------|
-| `abs(instant-vector)`                                           | :construction: |
-| `absent(instant-vector)`                                        | :construction: |
-| `ceil(instant-vector)`                                          | :construction: |
-| `clamp_max(instant-vector, scalar)`                             | :construction: |
-| `clamp_min(instant-vector, scalar)`                             | :construction: |
-| `exp(instant-vector)`                                           | :construction: |
-| `floor(instant-vector)`                                         | :construction: |
-| `histogram_quantile(scalar, instant-vector)`                    | :construction: |
-| `label_join(instant-vector, string, string, string...)`         | :construction: |
-| `label_replace(instant-vector, string, string, string, string)` | :construction: |
-| `ln(instant-vector)`                                            | :construction: |
-| `log10(instant-vector)`                                         | :construction: |
-| `log2(instant-vector)`                                          | :construction: |
-| `round(instant-vector, scalar)`                                 | :construction: |
-| `scalar(instant-vector)`                                        | :construction: |
-| `sort(instant-vector)`                                          | :construction: |
-| `sort_desc(instant-vector)`                                     | :construction: |
-| `sqrt(instant-vector)`                                          | :construction: |
+| Function                                                        | Support            |
+|-----------------------------------------------------------------|--------------------|
+| `abs(instant-vector)`                                           | :heavy_check_mark: |
+| `absent(instant-vector)`                                        | :construction:     |
+| `ceil(instant-vector)`                                          | :construction:     |
+| `clamp_max(instant-vector, scalar)`                             | :construction:     |
+| `clamp_min(instant-vector, scalar)`                             | :construction:     |
+| `exp(instant-vector)`                                           | :construction:     |
+| `floor(instant-vector)`                                         | :construction:     |
+| `histogram_quantile(scalar, instant-vector)`                    | :construction:     |
+| `label_join(instant-vector, string, string, string...)`         | :construction:     |
+| `label_replace(instant-vector, string, string, string, string)` | :construction:     |
+| `ln(instant-vector)`                                            | :construction:     |
+| `log10(instant-vector)`                                         | :construction:     |
+| `log2(instant-vector)`                                          | :construction:     |
+| `round(instant-vector, scalar)`                                 | :construction:     |
+| `scalar(instant-vector)`                                        | :construction:     |
+| `sort(instant-vector)`                                          | :construction:     |
+| `sort_desc(instant-vector)`                                     | :construction:     |
+| `sqrt(instant-vector)`                                          | :construction:     |
 
 ### Range Vector Functions
 
