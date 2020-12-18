@@ -1,3 +1,9 @@
+local range(interval, resolution="") = {
+  interval: interval,
+  resolution: resolution,
+  fmt():: if resolution == "" then '[%s]' % interval else '[%s:%s]' % [interval, resolution],
+};
+
 {
   new(metricName):: {
     labels:: {},
@@ -8,30 +14,16 @@
     labelExpr():: if self.labels == {} then "" else std.format("{%s}", self.labelString()),
 
 
-    functions:: [],
-    withInstantVectorFunc(func):: self {
-      functions+: [{
-        name: func,
-        args: null,
-      }],
+    functionTemplates:: [],
+    withFuncTemplate(funcTemplate):: self {
+      functionTemplates+: [funcTemplate],
     },
 
-    rangeStr(interval, resolution):: if resolution == "" then '[%s]' % interval else '[%s:%s]' % [interval, resolution],
-    withRangeVectorFunc(func, interval, resolution):: self {
-      functions+: [{
-        name: func,
-        args: {
-          interval: interval,
-          resolution: resolution,
-        },
-      }],
-    },
+    sum():: self.withFuncTemplate("sum(%s)"),
+    delta(interval, resolution):: self.withFuncTemplate("delta(%s" + range(interval, resolution).fmt() + ")"),
 
-    sum():: self.withInstantVectorFunc("sum"),
-    delta(interval, resolution):: self.withRangeVectorFunc("delta", interval, resolution),
-
-    applyFunction(query, func):: std.format('%s(%s%s)', [func.name, query, if func.args == null then "" else self.rangeStr(func.args.interval, func.args.resolution)]),
-    applyFunctions(query):: std.foldl(self.applyFunction, self.functions, query),
+    runTemplate(query, funcTemplate):: std.format(funcTemplate, query),
+    applyFunctions(query):: std.foldl(self.runTemplate, self.functionTemplates, query),
 
     baseQuery():: "%s%s" % [metricName, self.labelExpr()],
     build():: self.applyFunctions(self.baseQuery()),
