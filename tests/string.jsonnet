@@ -1,8 +1,8 @@
 local promql = import "../promql.libsonnet";
 
 local runTest(t) = {
-  success: t[2](t[1]),
-  test: if self.success then t[0] else std.trace("FAILED: %s" % t[0], t[0]),
+  result:: t[2](t[1]),
+  success: if self.result then self.result else std.trace("FAILED: %s" % t[0], self.result),
 };
 
 local testCases = [
@@ -31,6 +31,8 @@ local testCases = [
     function(q) q == 'foobar_whatever{environment="staging"}[5m:5m]'],
 ];
 
-{
-    testResults: std.map(runTest, testCases),
-}
+local testResults = std.map(runTest, testCases);
+local failures = std.filter(function(result) ! result.success, testResults);
+local failureCount = std.length(failures);
+
+if failureCount > 0 then "There are %s test failures." % failureCount else "OK"
