@@ -1,4 +1,4 @@
-local promql = import "../promql.libsonnet";
+local promql = import "promql.libsonnet";
 
 local runTest(t) = {
   result:: t[2] == t[1],

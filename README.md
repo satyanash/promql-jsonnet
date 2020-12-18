@@ -100,5 +100,5 @@ Below tables list out the support for the various PromQL operators and functions
 ## Running the tests
 
 ``` shell
-jsonnet tests/string.jsonnet
+jsonnet tests.jsonnet
 ```
