@@ -18,17 +18,13 @@ local testCases = [
     promql.new("foobar_whatever").addLabels({environment:"staging"}).addLabels({success:"true"}).build(),
     'foobar_whatever{environment="staging",success="true"}'],
 
-  ["it supports range intervals",
-    promql.new("foobar_whatever").addLabels({environment:"staging"}).withRange("5m").build(),
-    'foobar_whatever{environment="staging"}[5m]'],
-
-  ["it supports range intervals with a resolution",
-    promql.new("foobar_whatever").addLabels({environment:"staging"}).withRange("5m", "5m").build(),
-    'foobar_whatever{environment="staging"}[5m:5m]'],
-
-  ["it supports the sum function",
+  ["it supports instant vector functions like `sum`",
     promql.new("foobar_whatever").addLabels({environment:"staging"}).sum().build(),
     'sum(foobar_whatever{environment="staging"})'],
+
+  ["it supports range vector functions like `delta`",
+    promql.new("foobar_whatever").addLabels({environment:"staging"}).delta("5m", "5m").build(),
+    'delta(foobar_whatever{environment="staging"}[5m:5m])'],
 ];
 
 local testResults = std.map(runTest, testCases);
