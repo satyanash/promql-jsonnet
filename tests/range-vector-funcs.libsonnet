@@ -33,6 +33,10 @@ local promql = import "../promql.libsonnet";
     promql.new("prometheus_http_requests_total").withLabels({code:"200"}).irate(["5m", "5m"]).build(),
     'irate(prometheus_http_requests_total{code="200"}[5m:5m])'],
 
+  ["it supports range vector function `predict_linear`",
+    promql.new("prometheus_http_requests_total").withLabels({code:"200"}).predict_linear(["5m", "5m"], 60).build(),
+    'predict_linear(prometheus_http_requests_total{code="200"}[5m:5m], 60)'],
+
   ["it supports range vector function `rate`",
     promql.new("prometheus_http_requests_total").withLabels({code:"200"}).rate(["5m", "5m"]).build(),
     'rate(prometheus_http_requests_total{code="200"}[5m:5m])'],

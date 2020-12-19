@@ -102,7 +102,7 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 | `idelta(range-vector)`                       | :heavy_check_mark: |
 | `increase(range-vector)`                     | :heavy_check_mark: |
 | `irate(range-vector)`                        | :heavy_check_mark: |
-| `predict_linear(range-vector, scalar)`       | :construction:     |
+| `predict_linear(range-vector, scalar)`       | :heavy_check_mark: |
 | `rate(range-vector)`                         | :heavy_check_mark: |
 | `resets(range-vector)`                       | :heavy_check_mark: |
 |                                              |                    |

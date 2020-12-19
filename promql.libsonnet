@@ -71,6 +71,7 @@ local range(rangeSelector) = {
     idelta(rangeSelector):: self.withFuncTemplate("idelta(%s" + range(rangeSelector).fmt() + ")"),
     increase(rangeSelector):: self.withFuncTemplate("increase(%s" + range(rangeSelector).fmt() + ")"),
     irate(rangeSelector):: self.withFuncTemplate("irate(%s" + range(rangeSelector).fmt() + ")"),
+    predict_linear(rangeSelector, seconds):: self.withFuncTemplate("predict_linear(%s" + range(rangeSelector).fmt() + ", " + seconds + ")"),
     rate(rangeSelector):: self.withFuncTemplate("rate(%s" + range(rangeSelector).fmt() + ")"),
     resets(rangeSelector):: self.withFuncTemplate("resets(%s" + range(rangeSelector).fmt() + ")"),
 
