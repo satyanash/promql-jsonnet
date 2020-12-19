@@ -2,18 +2,20 @@ version: 2.1
 jobs:
   unit-tests:
     docker:
-      - image: mexisme/jsonnet:latest
+      - image: bitnami/jsonnet:latest
+        user: root
     steps:
       - checkout
-      - run: "/jsonnet unit-tests.jsonnet"
+      - run: "jsonnet unit-tests.jsonnet"
   integration-tests:
     docker:
-      - image: mexisme/jsonnet:latest
+      - image: bitnami/jsonnet:latest
         user: root
       - image: prom/prometheus:latest
     steps:
       - checkout
-      - run: "apk add --no-cache curl jq"
+      - run: "apt-get update"
+      - run: "apt-get -y install curl jq"
       - run: "export PATH=$PATH:/"
       - run: "./integration_tests.sh"
 workflows:
