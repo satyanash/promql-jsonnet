@@ -36,7 +36,7 @@ Below tables list out the support for the various PromQL operators and functions
 These support additional clauses like `by` and `without`. For eg:
 
 ``` promql
-promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
+promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"]).build()
 
 // Output: sum by (handler,instance) (prometheus_http_requests_total)
 ```
@@ -78,6 +78,15 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 | `sort(instant-vector)`                                          | :heavy_check_mark: |
 | `sort_desc(instant-vector)`                                     | :heavy_check_mark: |
 | `sqrt(instant-vector)`                                          | :heavy_check_mark: |
+|                                                                 |                    |
+| `day_of_month(instant-vector)`                                  | :construction:     |
+| `day_of_week(instant-vector)`                                   | :construction:     |
+| `days_in_month(instant-vector)`                                 | :construction:     |
+| `hour(instant-vector)`                                          | :construction:     |
+| `minute(instant-vector)`                                        | :construction:     |
+| `month(instant-vector)`                                         | :construction:     |
+| `year(instant-vector)`                                          | :construction:     |
+| `timestamp(instant-vector)`                                     | :construction:     |
 
 ### Range Vector Functions
 
@@ -115,6 +124,12 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 | `stddev_over_time(range-vector)`             | :heavy_check_mark: |
 | `stdvar_over_time(range-vector)`             | :heavy_check_mark: |
 
+### Miscellaneous Functions
+
+| Function         | Support        |
+|------------------|----------------|
+| `vector(scalar)` | :construction: |
+| `time()`         | :construction: |
 
 ## Running the tests
 
