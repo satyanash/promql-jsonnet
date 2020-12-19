@@ -29,6 +29,10 @@ local promql = import "../promql.libsonnet";
     promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).floor().build(),
     'floor(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
 
+  ["it supports instant vector function `histogram_quantile`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).histogram_quantile("0.9").build(),
+    'histogram_quantile(0.9, prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
+
   ["it supports instant vector function `ln`",
     promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).ln().build(),
     'ln(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
