@@ -108,3 +108,6 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 ## Running the tests
 
 * Unit Tests: `jsonnet unit-tests.jsonnet`
+* Integration Tests
+  1. Have a prometheus listening at `http://localhost:9090`
+  2. Run `./integration_tests.sh`
