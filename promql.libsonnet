@@ -63,6 +63,22 @@ local range(rangeSelector) = {
     sqrt():: self.withFuncTemplate("sqrt(%s)"),
 
     // Range Vector Functions
+    changes(rangeSelector):: self.withFuncTemplate("changes(%s" + range(rangeSelector).fmt() + ")"),
+    absent_over_time(rangeSelector):: self.withFuncTemplate("absent_over_time(%s" + range(rangeSelector).fmt() + ")"),
     delta(rangeSelector):: self.withFuncTemplate("delta(%s" + range(rangeSelector).fmt() + ")"),
+    deriv(rangeSelector):: self.withFuncTemplate("deriv(%s" + range(rangeSelector).fmt() + ")"),
+    idelta(rangeSelector):: self.withFuncTemplate("idelta(%s" + range(rangeSelector).fmt() + ")"),
+    increase(rangeSelector):: self.withFuncTemplate("increase(%s" + range(rangeSelector).fmt() + ")"),
+    irate(rangeSelector):: self.withFuncTemplate("irate(%s" + range(rangeSelector).fmt() + ")"),
+    rate(rangeSelector):: self.withFuncTemplate("rate(%s" + range(rangeSelector).fmt() + ")"),
+    resets(rangeSelector):: self.withFuncTemplate("resets(%s" + range(rangeSelector).fmt() + ")"),
+
+    avg_over_time(rangeSelector):: self.withFuncTemplate("avg_over_time(%s" + range(rangeSelector).fmt() + ")"),
+    min_over_time(rangeSelector):: self.withFuncTemplate("min_over_time(%s" + range(rangeSelector).fmt() + ")"),
+    max_over_time(rangeSelector):: self.withFuncTemplate("max_over_time(%s" + range(rangeSelector).fmt() + ")"),
+    sum_over_time(rangeSelector):: self.withFuncTemplate("sum_over_time(%s" + range(rangeSelector).fmt() + ")"),
+    count_over_time(rangeSelector):: self.withFuncTemplate("count_over_time(%s" + range(rangeSelector).fmt() + ")"),
+    stddev_over_time(rangeSelector):: self.withFuncTemplate("stddev_over_time(%s" + range(rangeSelector).fmt() + ")"),
+    stdvar_over_time(rangeSelector):: self.withFuncTemplate("stdvar_over_time(%s" + range(rangeSelector).fmt() + ")"),
   }
 }

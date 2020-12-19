@@ -94,26 +94,26 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 
 | Function                                     | Support            |
 |----------------------------------------------|--------------------|
-| `changes(range-vector)`                      | :construction:     |
-| `absent_over_time(range-vector)`             | :construction:     |
+| `changes(range-vector)`                      | :heavy_check_mark: |
+| `absent_over_time(range-vector)`             | :heavy_check_mark: |
 | `delta(range-vector)`                        | :heavy_check_mark: |
-| `deriv(range-vector)`                        | :construction:     |
+| `deriv(range-vector)`                        | :heavy_check_mark: |
 | `holt_winters(range-vector, scalar, scalar)` | :construction:     |
-| `idelta(range-vector)`                       | :construction:     |
-| `increase(range-vector)`                     | :construction:     |
-| `irate(range-vector)`                        | :construction:     |
+| `idelta(range-vector)`                       | :heavy_check_mark: |
+| `increase(range-vector)`                     | :heavy_check_mark: |
+| `irate(range-vector)`                        | :heavy_check_mark: |
 | `predict_linear(range-vector, scalar)`       | :construction:     |
-| `rate(range-vector)`                         | :construction:     |
-| `resets(range-vector)`                       | :construction:     |
+| `rate(range-vector)`                         | :heavy_check_mark: |
+| `resets(range-vector)`                       | :heavy_check_mark: |
 |                                              |                    |
-| `avg_over_time(range-vector)`                | :construction:     |
-| `min_over_time(range-vector)`                | :construction:     |
-| `max_over_time(range-vector)`                | :construction:     |
-| `sum_over_time(range-vector)`                | :construction:     |
-| `count_over_time(range-vector)`              | :construction:     |
+| `avg_over_time(range-vector)`                | :heavy_check_mark: |
+| `min_over_time(range-vector)`                | :heavy_check_mark: |
+| `max_over_time(range-vector)`                | :heavy_check_mark: |
+| `sum_over_time(range-vector)`                | :heavy_check_mark: |
+| `count_over_time(range-vector)`              | :heavy_check_mark: |
 | `quantile_over_time(scalar, range-vector)`   | :construction:     |
-| `stddev_over_time(range-vector)`             | :construction:     |
-| `stdvar_over_time(range-vector)`             | :construction:     |
+| `stddev_over_time(range-vector)`             | :heavy_check_mark: |
+| `stdvar_over_time(range-vector)`             | :heavy_check_mark: |
 
 
 ## Running the tests
