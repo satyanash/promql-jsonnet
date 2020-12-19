@@ -21,6 +21,10 @@ local promql = import "../promql.libsonnet";
     promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).clamp_min(1).build(),
     'clamp_min(prometheus_engine_query_duration_seconds{slice="prepare_time"}, 1)'],
 
+  ["it supports instant vector function `exp`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).exp().build(),
+    'exp(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
+
   ["it supports instant vector function `floor`",
     promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).floor().build(),
     'floor(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
