@@ -1,21 +1,14 @@
-# `promql-jsonnet` ![promql-jsonnet](https://circleci.com/gh/satyanash/promql-jsonnet.svg?style=shield)
+# `promql-jsonnet` [![promql-jsonnet](https://circleci.com/gh/satyanash/promql-jsonnet.svg?style=shield)](https://circleci.com/gh/satyanash/promql-jsonnet)
 
 A [Jsonnet](https://jsonnet.org) based DSL for writing [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) queries.
 This is useful when creating grafana dashboards using [`grafonnet`](https://github.com/grafana/grafonnet-lib/).
 Instead of having to template strings manually, you can now use immutable builders to DRY out your PromQL queries.
 
-This library generates json strings, which can be fed to the `expr` field of the [prometheus target](https://grafana.github.io/grafonnet-lib/api-docs/#prometheustarget) in graffonet.
+This library generates jsonnet strings, which can be fed to the `expr` field of the [prometheus target](https://grafana.github.io/grafonnet-lib/api-docs/#prometheustarget) in graffonet.
 
-## Getting Started
+## Usage
 
-Usage is natural, if you know what you're looking to construct.
-Here is a quick example to construct a PromQL for a counter:
-
-``` promql
-delta(sum(prometheus_http_requests_total{code="200",handler="/api/v1/query"})[5m:5m])
-```
-
-The corresponding usage in jsonnet would look something like this:
+Here is a quick example that constructs a PromQL query for a counter:
 
 ``` jsonnet
 local promql = import "promql.libsonnet";
@@ -28,9 +21,12 @@ promql.new("prometheus_http_requests_total")
       .sum()
       .delta(["5m","5m"])
       .build()
+
+// promql result: delta(sum(prometheus_http_requests_total{code="200",handler="/api/v1/query"})[5m:5m])
 ```
 
-### Basic Usage
+Usage is natural, if you know what you're looking to construct.
+The general steps are as follows:
 
 1. Import `promql` from the `promql.libsonnet` file.
 2. Use `promql.new("...")` to start creating a query.
@@ -42,26 +38,21 @@ promql.new("prometheus_http_requests_total")
    local promql = import "promql.libsonnet";
    local grafana = import "grafonnet.libsonnet";
 
-   local http_sucess_query = promql.new("prometheus_http_requests_total")
+   local http_success_query = promql.new("prometheus_http_requests_total")
                                    .withLabels({code:"200"})
                                    .sum()
                                    .delta(["$__interval", "$__interval"])
                                    .build();
 
-   grafana.prometheus.target(
-       expr= http_sucess_query
-       //...
-   )
-
+   grafana.prometheus.target(expr=http_success_query, ...)
    ```
 
 ### Aggregation operators
 
 * Aggregation operators like `sum`, `avg` etc. take instant vectors and return another instant vector.
-* These support following optional clauses that take a list of labels:
+* These also support the following optional clauses with a list of labels:
   * `by` clause - `.topk(5, by=["host"])`
   * `without` clause - `.avg(without=["handler"])`
-
 * Sample usage:
   ``` jsonnet
   promql.new("prometheus_http_requests_total")
@@ -95,9 +86,9 @@ promql.new("prometheus_http_requests_total")
 
 ## API Reference and PromQL Support
 
-| PromQL Function                                                 | Jsonnet Usage                              | Support            |
+| PromQL Function                                                 | Sample Jsonnet Usage                       | Support            |
 |-----------------------------------------------------------------|--------------------------------------------|--------------------|
-| *Aggregation Functions*                                         |                                            |                    |
+| **Aggregation Functions**                                       |                                            |                    |
 | `sum(instant-vector)`                                           | `.sum()`                                   | :heavy_check_mark: |
 | `min(instant-vector)`                                           | `.min()`                                   | :heavy_check_mark: |
 | `max(instant-vector)`                                           | `.max()`                                   | :heavy_check_mark: |
@@ -111,7 +102,7 @@ promql.new("prometheus_http_requests_total")
 | `topk(scalar, instant-vector)`                                  | `.topk(5)`                                 | :heavy_check_mark: |
 | `quantile(scalar, instant-vector)`                              | `.quantile("0.99")`                        | :heavy_check_mark: |
 |                                                                 |                                            |                    |
-| *Instant Vector Functions*                                      |                                            |                    |
+| **Instant Vector Functions**                                    |                                            |                    |
 | `abs(instant-vector)`                                           | `.abs()`                                   | :heavy_check_mark: |
 | `absent(instant-vector)`                                        | `.absent()`                                | :heavy_check_mark: |
 | `ceil(instant-vector)`                                          | `.ceil()`                                  | :heavy_check_mark: |
@@ -140,7 +131,7 @@ promql.new("prometheus_http_requests_total")
 | `year(instant-vector)`                                          |                                            | :construction:     |
 | `timestamp(instant-vector)`                                     |                                            | :construction:     |
 |                                                                 |                                            |                    |
-| *Range Vector Functions*                                        |                                            |                    |
+| **Range Vector Functions**                                      |                                            |                    |
 | `changes(range-vector)`                                         | `.changes(["1m","1m"])`                    | :heavy_check_mark: |
 | `absent_over_time(range-vector)`                                | `.absent_over_time(["1m","1m"])`           | :heavy_check_mark: |
 | `delta(range-vector)`                                           | `.delta(["1m","1m"])`                      | :heavy_check_mark: |
