@@ -67,6 +67,7 @@ local range(rangeSelector) = {
     absent_over_time(rangeSelector):: self.withFuncTemplate("absent_over_time(%s" + range(rangeSelector).fmt() + ")"),
     delta(rangeSelector):: self.withFuncTemplate("delta(%s" + range(rangeSelector).fmt() + ")"),
     deriv(rangeSelector):: self.withFuncTemplate("deriv(%s" + range(rangeSelector).fmt() + ")"),
+    holt_winters(rangeSelector, sf, tf):: self.withFuncTemplate("holt_winters(%s" + range(rangeSelector).fmt() + ", " + sf + ", " + tf + ")"),
     idelta(rangeSelector):: self.withFuncTemplate("idelta(%s" + range(rangeSelector).fmt() + ")"),
     increase(rangeSelector):: self.withFuncTemplate("increase(%s" + range(rangeSelector).fmt() + ")"),
     irate(rangeSelector):: self.withFuncTemplate("irate(%s" + range(rangeSelector).fmt() + ")"),

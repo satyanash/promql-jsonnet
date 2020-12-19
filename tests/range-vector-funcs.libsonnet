@@ -17,6 +17,10 @@ local promql = import "../promql.libsonnet";
     promql.new("prometheus_http_requests_total").withLabels({code:"200"}).deriv(["5m", "5m"]).build(),
     'deriv(prometheus_http_requests_total{code="200"}[5m:5m])'],
 
+  ["it supports range vector function `holt_winters`",
+    promql.new("prometheus_http_requests_total").withLabels({code:"200"}).holt_winters(["5m", "5m"], "0.5", "0.5").build(),
+    'holt_winters(prometheus_http_requests_total{code="200"}[5m:5m], 0.5, 0.5)'],
+
   ["it supports range vector function `idelta`",
     promql.new("prometheus_http_requests_total").withLabels({code:"200"}).idelta(["5m", "5m"]).build(),
     'idelta(prometheus_http_requests_total{code="200"}[5m:5m])'],

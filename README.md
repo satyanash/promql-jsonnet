@@ -98,7 +98,7 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 | `absent_over_time(range-vector)`             | :heavy_check_mark: |
 | `delta(range-vector)`                        | :heavy_check_mark: |
 | `deriv(range-vector)`                        | :heavy_check_mark: |
-| `holt_winters(range-vector, scalar, scalar)` | :construction:     |
+| `holt_winters(range-vector, scalar, scalar)` | :heavy_check_mark: |
 | `idelta(range-vector)`                       | :heavy_check_mark: |
 | `increase(range-vector)`                     | :heavy_check_mark: |
 | `irate(range-vector)`                        | :heavy_check_mark: |
