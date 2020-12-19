@@ -41,20 +41,20 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 // Output: sum by (handler,instance) (prometheus_http_requests_total)
 ```
 
-| Function                       | Support            |
-|--------------------------------|--------------------|
-| `sum(instant-vector)`          | :heavy_check_mark: |
-| `min(instant-vector)`          | :heavy_check_mark: |
-| `max(instant-vector)`          | :heavy_check_mark: |
-| `avg(instant-vector)`          | :heavy_check_mark: |
-| `group(instant-vector)`        | :heavy_check_mark: |
-| `stddev(instant-vector)`       | :heavy_check_mark: |
-| `stdvar(instant-vector)`       | :heavy_check_mark: |
-| `count(instant-vector)`        | :heavy_check_mark: |
-| `count_values(instant-vector)` | :construction:     |
-| `bottomk(instant-vector)`      | :construction:     |
-| `topk(instant-vector)`         | :construction:     |
-| `quantile(instant-vector)`     | :construction:     |
+| Function                               | Support            |
+|----------------------------------------|--------------------|
+| `sum(instant-vector)`                  | :heavy_check_mark: |
+| `min(instant-vector)`                  | :heavy_check_mark: |
+| `max(instant-vector)`                  | :heavy_check_mark: |
+| `avg(instant-vector)`                  | :heavy_check_mark: |
+| `group(instant-vector)`                | :heavy_check_mark: |
+| `stddev(instant-vector)`               | :heavy_check_mark: |
+| `stdvar(instant-vector)`               | :heavy_check_mark: |
+| `count(instant-vector)`                | :heavy_check_mark: |
+| `count_values(string, instant-vector)` | :construction:     |
+| `bottomk(scalar, instant-vector)`      | :construction:     |
+| `topk(scalar, instant-vector)`         | :construction:     |
+| `quantile(scalar, instant-vector)`     | :construction:     |
 
 ### Instant Vector Functions
 
