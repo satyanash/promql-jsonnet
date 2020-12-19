@@ -49,6 +49,8 @@ local range(interval, resolution="") = {
     abs():: self.withFuncTemplate("abs(%s)"),
     absent():: self.withFuncTemplate("absent(%s)"),
     ceil():: self.withFuncTemplate("ceil(%s)"),
+    clamp_max(max):: self.withFuncTemplate("clamp_max(%s, " + max + ")"),
+    clamp_min(min):: self.withFuncTemplate("clamp_min(%s, " + min + ")"),
     ln():: self.withFuncTemplate("ln(%s)"),
     log10():: self.withFuncTemplate("log10(%s)"),
     log2():: self.withFuncTemplate("log2(%s)"),
