@@ -49,5 +49,12 @@ local range(interval, resolution="") = {
     abs():: self.withFuncTemplate("abs(%s)"),
     absent():: self.withFuncTemplate("absent(%s)"),
     ceil():: self.withFuncTemplate("ceil(%s)"),
+    ln():: self.withFuncTemplate("ln(%s)"),
+    log10():: self.withFuncTemplate("log10(%s)"),
+    log2():: self.withFuncTemplate("log2(%s)"),
+    scalar():: self.withFuncTemplate("scalar(%s)"),
+    sort():: self.withFuncTemplate("sort(%s)"),
+    sort_desc():: self.withFuncTemplate("sort_desc(%s)"),
+    sqrt():: self.withFuncTemplate("sqrt(%s)"),
   }
 }

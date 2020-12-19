@@ -12,4 +12,32 @@ local promql = import "../promql.libsonnet";
   ["it supports instant vector function `ceil`",
     promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).ceil().build(),
     'ceil(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
+
+  ["it supports instant vector function `ln`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).ln().build(),
+    'ln(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
+
+  ["it supports instant vector function `log10`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).log10().build(),
+    'log10(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
+
+  ["it supports instant vector function `log2`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).log2().build(),
+    'log2(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
+
+  ["it supports instant vector function `scalar`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time", job:"prometheus"}).scalar().build(),
+    'scalar(prometheus_engine_query_duration_seconds{job="prometheus",slice="prepare_time"})'],
+
+  ["it supports instant vector function `sort`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).sort().build(),
+    'sort(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
+
+  ["it supports instant vector function `sort_desc`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).sort_desc().build(),
+    'sort_desc(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
+
+  ["it supports instant vector function `sqrt`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).sqrt().build(),
+    'sqrt(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
 ]

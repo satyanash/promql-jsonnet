@@ -70,14 +70,14 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 | `histogram_quantile(scalar, instant-vector)`                    | :construction:     |
 | `label_join(instant-vector, string, string, string...)`         | :construction:     |
 | `label_replace(instant-vector, string, string, string, string)` | :construction:     |
-| `ln(instant-vector)`                                            | :construction:     |
-| `log10(instant-vector)`                                         | :construction:     |
-| `log2(instant-vector)`                                          | :construction:     |
+| `ln(instant-vector)`                                            | :heavy_check_mark: |
+| `log10(instant-vector)`                                         | :heavy_check_mark: |
+| `log2(instant-vector)`                                          | :heavy_check_mark: |
 | `round(instant-vector, scalar)`                                 | :construction:     |
-| `scalar(instant-vector)`                                        | :construction:     |
-| `sort(instant-vector)`                                          | :construction:     |
-| `sort_desc(instant-vector)`                                     | :construction:     |
-| `sqrt(instant-vector)`                                          | :construction:     |
+| `scalar(instant-vector)`                                        | :heavy_check_mark: |
+| `sort(instant-vector)`                                          | :heavy_check_mark: |
+| `sort_desc(instant-vector)`                                     | :heavy_check_mark: |
+| `sqrt(instant-vector)`                                          | :heavy_check_mark: |
 
 ### Range Vector Functions
 
