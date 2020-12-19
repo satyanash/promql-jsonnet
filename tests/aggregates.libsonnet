@@ -108,4 +108,16 @@ local promql = import "../promql.libsonnet";
   ["it supports aggregation function `count_values` with a `without` clause",
     promql.new("prometheus_notifications_queue_capacity").withLabels({job:"prometheus"}).count_values("capacity", without=["instance"]).build(),
     'count_values without (instance) ("capacity", prometheus_notifications_queue_capacity{job="prometheus"})'],
+
+  ["it supports aggregation function `bottomk`",
+    promql.new("prometheus_notifications_queue_capacity").withLabels({job:"prometheus"}).bottomk(5).build(),
+    'bottomk(5, prometheus_notifications_queue_capacity{job="prometheus"})'],
+
+  ["it supports aggregation function `bottomk` with a `by` clause",
+    promql.new("prometheus_notifications_queue_capacity").withLabels({job:"prometheus"}).bottomk(5, by=["instance"]).build(),
+    'bottomk by (instance) (5, prometheus_notifications_queue_capacity{job="prometheus"})'],
+
+  ["it supports aggregation function `bottomk` with a `without` clause",
+    promql.new("prometheus_notifications_queue_capacity").withLabels({job:"prometheus"}).bottomk(5, without=["instance"]).build(),
+    'bottomk without (instance) (5, prometheus_notifications_queue_capacity{job="prometheus"})'],
 ]
