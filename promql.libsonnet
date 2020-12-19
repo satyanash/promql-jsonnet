@@ -56,6 +56,7 @@ local range(interval, resolution="") = {
     ln():: self.withFuncTemplate("ln(%s)"),
     log10():: self.withFuncTemplate("log10(%s)"),
     log2():: self.withFuncTemplate("log2(%s)"),
+    round(to_nearest=1):: self.withFuncTemplate("round(%s, " + to_nearest + ")"),
     scalar():: self.withFuncTemplate("scalar(%s)"),
     sort():: self.withFuncTemplate("sort(%s)"),
     sort_desc():: self.withFuncTemplate("sort_desc(%s)"),

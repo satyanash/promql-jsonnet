@@ -41,6 +41,14 @@ local promql = import "../promql.libsonnet";
     promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).log2().build(),
     'log2(prometheus_engine_query_duration_seconds{slice="prepare_time"})'],
 
+  ["it supports instant vector function `round`",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).round(2).build(),
+    'round(prometheus_engine_query_duration_seconds{slice="prepare_time"}, 2)'],
+
+  ["it supports instant vector function `round` and defaults to 1",
+    promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time"}).round().build(),
+    'round(prometheus_engine_query_duration_seconds{slice="prepare_time"}, 1)'],
+
   ["it supports instant vector function `scalar`",
     promql.new("prometheus_engine_query_duration_seconds").withLabels({slice:"prepare_time", job:"prometheus"}).scalar().build(),
     'scalar(prometheus_engine_query_duration_seconds{job="prometheus",slice="prepare_time"})'],

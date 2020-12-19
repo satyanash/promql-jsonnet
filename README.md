@@ -73,7 +73,7 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 | `ln(instant-vector)`                                            | :heavy_check_mark: |
 | `log10(instant-vector)`                                         | :heavy_check_mark: |
 | `log2(instant-vector)`                                          | :heavy_check_mark: |
-| `round(instant-vector, scalar)`                                 | :construction:     |
+| `round(instant-vector, scalar)`                                 | :heavy_check_mark: |
 | `scalar(instant-vector)`                                        | :heavy_check_mark: |
 | `sort(instant-vector)`                                          | :heavy_check_mark: |
 | `sort_desc(instant-vector)`                                     | :heavy_check_mark: |
