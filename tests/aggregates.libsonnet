@@ -96,4 +96,16 @@ local promql = import "../promql.libsonnet";
   ["it supports aggregation function `count` with a `without` clause",
     promql.new("prometheus_http_requests_total").withLabels({code:"200"}).count(without=["version"]).build(),
     'count without (version) (prometheus_http_requests_total{code="200"})'],
+
+  ["it supports aggregation function `count_values`",
+    promql.new("prometheus_notifications_queue_capacity").withLabels({job:"prometheus"}).count_values("capacity").build(),
+    'count_values("capacity", prometheus_notifications_queue_capacity{job="prometheus"})'],
+
+  ["it supports aggregation function `count_values` with a `by` clause",
+    promql.new("prometheus_notifications_queue_capacity").withLabels({job:"prometheus"}).count_values("capacity", by=["instance"]).build(),
+    'count_values by (instance) ("capacity", prometheus_notifications_queue_capacity{job="prometheus"})'],
+
+  ["it supports aggregation function `count_values` with a `without` clause",
+    promql.new("prometheus_notifications_queue_capacity").withLabels({job:"prometheus"}).count_values("capacity", without=["instance"]).build(),
+    'count_values without (instance) ("capacity", prometheus_notifications_queue_capacity{job="prometheus"})'],
 ]

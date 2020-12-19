@@ -40,6 +40,7 @@ local range(interval, resolution="") = {
     stddev(by=[], without=[]):: self.withFuncTemplate("stddev" + self.aggr_clause(by, without) + "(%s)"),
     stdvar(by=[], without=[]):: self.withFuncTemplate("stdvar" + self.aggr_clause(by, without) + "(%s)"),
     count(by=[], without=[]):: self.withFuncTemplate("count" + self.aggr_clause(by, without) + "(%s)"),
+    count_values(labelName, by=[], without=[]):: self.withFuncTemplate("count_values" + self.aggr_clause(by, without) + "(\"" + labelName + "\", %s)"),
 
     // Instant Vector Functions
     abs():: self.withFuncTemplate("abs(%s)"),
