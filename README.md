@@ -81,6 +81,17 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 
 ### Range Vector Functions
 
+* A PromQL Range Selector is represented in jsonnet by a 2-tuple of duration strings: `["1m","1m"]`.
+* The first one represents the actual range, while the second is the resolution.
+* Since applying a range selector by itself is not of much use, this library couples it to all functions that expect a range-vector.
+* Thus to construct `delta(prometheus_http_requests_total{status_code="200"}[1m:1m])`, the code would look like:
+  ``` jsonnet
+  promql.new("prometheus_http_requests_total")
+        .withLabels({status_code:"200"})
+        .delta(["1m","1m"])
+        .build()
+  ```
+
 | Function                                     | Support            |
 |----------------------------------------------|--------------------|
 | `changes(range-vector)`                      | :construction:     |

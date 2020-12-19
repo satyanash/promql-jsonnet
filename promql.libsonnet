@@ -1,7 +1,7 @@
-local range(interval, resolution="") = {
-  interval: interval,
-  resolution: resolution,
-  fmt():: if resolution == "" then '[%s]' % interval else '[%s:%s]' % [interval, resolution],
+local range(rangeSelector) = {
+  interval: rangeSelector[0],
+  resolution: rangeSelector[1],
+  fmt():: '[%s:%s]' % [self.interval, self.resolution],
 };
 
 {
@@ -18,7 +18,6 @@ local range(interval, resolution="") = {
     withFuncTemplate(funcTemplate):: self {
       functionTemplates+: [funcTemplate],
     },
-    delta(interval, resolution):: self.withFuncTemplate("delta(%s" + range(interval, resolution).fmt() + ")"),
 
     runTemplate(query, funcTemplate):: std.format(funcTemplate, query),
     applyFunctions(query):: std.foldl(self.runTemplate, self.functionTemplates, query),
@@ -62,5 +61,8 @@ local range(interval, resolution="") = {
     sort():: self.withFuncTemplate("sort(%s)"),
     sort_desc():: self.withFuncTemplate("sort_desc(%s)"),
     sqrt():: self.withFuncTemplate("sqrt(%s)"),
+
+    // Range Vector Functions
+    delta(rangeSelector):: self.withFuncTemplate("delta(%s" + range(rangeSelector).fmt() + ")"),
   }
 }
