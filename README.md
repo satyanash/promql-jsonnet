@@ -109,5 +109,8 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 
 * Unit Tests: `jsonnet unit-tests.jsonnet`
 * Integration Tests
-  1. Have a prometheus listening at `http://localhost:9090`
+  1. Start a prometheus listening at `http://localhost:9090` with
+  ``` shell
+  docker run -p 127.0.0.1:9090:9090 --rm --name "promql-jsonnet-prometheus" -it prom/prometheus
+  ```
   2. Run `./integration_tests.sh`

@@ -6,8 +6,19 @@ jobs:
     steps:
       - checkout
       - run: "/jsonnet unit-tests.jsonnet"
+  integration-tests:
+    docker:
+      - image: mexisme/jsonnet:latest
+        user: root
+    docker:
+      - image: prom/prometheus:latest
+    steps:
+      - checkout
+      - run: "apk add --no-cache curl jq"
+      - run: "./integration_tests.sh"
 workflows:
   version: 2
   tests:
     jobs:
       - unit-tests
+      - integration-tests
