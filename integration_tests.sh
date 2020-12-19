@@ -5,7 +5,7 @@ TEST_RUN=test_run.sh
 FAILURE_COUNT=0
 TEST_COUNT=0
 
-rm ${TEST_RUN}
+rm -f ${TEST_RUN}
 
 cat <<EOF >> ${TEST_RUN}
 #!/bin/sh
