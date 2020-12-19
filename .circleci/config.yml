@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   unit-tests:
     docker:
-      - image: bitnami/jsonnet:latest
+      - image: mexisme/jsonnet:latest
     steps:
       - checkout
       - run: jsonnet tests.jsonnet
