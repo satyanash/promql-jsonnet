@@ -1,0 +1,13 @@
+version: 2.1
+jobs:
+  unit-tests:
+    docker:
+      - image: mexisme/jsonnet:latest
+    steps:
+      - checkout
+      - run: "/jsonnet tests.jsonnet"
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - unit-tests
