@@ -48,5 +48,6 @@ local range(interval, resolution="") = {
     // Instant Vector Functions
     abs():: self.withFuncTemplate("abs(%s)"),
     absent():: self.withFuncTemplate("absent(%s)"),
+    ceil():: self.withFuncTemplate("ceil(%s)"),
   }
 }
