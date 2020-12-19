@@ -10,16 +10,16 @@ local runTest(t) = {
 
 local testCases = basicTests + aggregateTests + [
   ["it supports instant vector functions like `abs`",
-    promql.new("foobar_whatever").withLabels({environment:"staging"}).abs().build(),
-    'abs(foobar_whatever{environment="staging"})'],
+    promql.new("prometheus_http_requests_total").withLabels({code:"200"}).abs().build(),
+    'abs(prometheus_http_requests_total{code="200"})'],
 
   ["it supports range vector functions like `delta`",
-    promql.new("foobar_whatever").withLabels({environment:"staging"}).delta("5m", "5m").build(),
-    'delta(foobar_whatever{environment="staging"}[5m:5m])'],
+    promql.new("prometheus_http_requests_total").withLabels({code:"200"}).delta("5m", "5m").build(),
+    'delta(prometheus_http_requests_total{code="200"}[5m:5m])'],
 
   ["it supports function composition in the given order",
-    promql.new("foobar_whatever").withLabels({environment:"staging"}).abs().delta("5m", "5m").build(),
-    'delta(abs(foobar_whatever{environment="staging"})[5m:5m])'],
+    promql.new("prometheus_http_requests_total").withLabels({code:"200"}).abs().delta("5m", "5m").build(),
+    'delta(abs(prometheus_http_requests_total{code="200"})[5m:5m])'],
 ];
 
 local testResults = std.map(runTest, testCases);
