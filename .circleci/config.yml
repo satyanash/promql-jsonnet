@@ -10,7 +10,6 @@ jobs:
     docker:
       - image: mexisme/jsonnet:latest
         user: root
-    docker:
       - image: prom/prometheus:latest
     steps:
       - checkout
