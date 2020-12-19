@@ -4,11 +4,11 @@ local basicTests = import "tests/basic.libsonnet";
 local aggregateTests = import "tests/aggregates.libsonnet";
 
 basicTests + aggregateTests + [
-  ["it supports instant vector functions like `abs`",
+  ["it supports instant vector function `abs`",
     promql.new("prometheus_http_requests_total").withLabels({code:"200"}).abs().build(),
     'abs(prometheus_http_requests_total{code="200"})'],
 
-  ["it supports range vector functions like `delta`",
+  ["it supports range vector function `delta`",
     promql.new("prometheus_http_requests_total").withLabels({code:"200"}).delta("5m", "5m").build(),
     'delta(prometheus_http_requests_total{code="200"}[5m:5m])'],
 
