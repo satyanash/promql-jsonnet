@@ -61,7 +61,7 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 | Function                                                        | Support            |
 |-----------------------------------------------------------------|--------------------|
 | `abs(instant-vector)`                                           | :heavy_check_mark: |
-| `absent(instant-vector)`                                        | :construction:     |
+| `absent(instant-vector)`                                        | :heavy_check_mark: |
 | `ceil(instant-vector)`                                          | :construction:     |
 | `clamp_max(instant-vector, scalar)`                             | :construction:     |
 | `clamp_min(instant-vector, scalar)`                             | :construction:     |
