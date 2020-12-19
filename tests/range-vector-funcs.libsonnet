@@ -57,6 +57,10 @@ local promql = import "../promql.libsonnet";
     promql.new("prometheus_http_requests_total").withLabels({code:"200"}).count_over_time(["5m", "5m"]).build(),
     'count_over_time(prometheus_http_requests_total{code="200"}[5m:5m])'],
 
+  ["it supports range vector function `quantile_over_time`",
+    promql.new("prometheus_http_requests_total").withLabels({code:"200"}).quantile_over_time("0.99", ["5m", "5m"]).build(),
+    'quantile_over_time(0.99, prometheus_http_requests_total{code="200"}[5m:5m])'],
+
   ["it supports range vector function `stddev_over_time`",
     promql.new("prometheus_http_requests_total").withLabels({code:"200"}).stddev_over_time(["5m", "5m"]).build(),
     'stddev_over_time(prometheus_http_requests_total{code="200"}[5m:5m])'],

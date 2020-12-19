@@ -111,7 +111,7 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 | `max_over_time(range-vector)`                | :heavy_check_mark: |
 | `sum_over_time(range-vector)`                | :heavy_check_mark: |
 | `count_over_time(range-vector)`              | :heavy_check_mark: |
-| `quantile_over_time(scalar, range-vector)`   | :construction:     |
+| `quantile_over_time(scalar, range-vector)`   | :heavy_check_mark: |
 | `stddev_over_time(range-vector)`             | :heavy_check_mark: |
 | `stdvar_over_time(range-vector)`             | :heavy_check_mark: |
 

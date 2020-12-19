@@ -78,6 +78,7 @@ local range(rangeSelector) = {
     max_over_time(rangeSelector):: self.withFuncTemplate("max_over_time(%s" + range(rangeSelector).fmt() + ")"),
     sum_over_time(rangeSelector):: self.withFuncTemplate("sum_over_time(%s" + range(rangeSelector).fmt() + ")"),
     count_over_time(rangeSelector):: self.withFuncTemplate("count_over_time(%s" + range(rangeSelector).fmt() + ")"),
+    quantile_over_time(q, rangeSelector):: self.withFuncTemplate("quantile_over_time(" + q + ", %s" + range(rangeSelector).fmt() + ")"),
     stddev_over_time(rangeSelector):: self.withFuncTemplate("stddev_over_time(%s" + range(rangeSelector).fmt() + ")"),
     stdvar_over_time(rangeSelector):: self.withFuncTemplate("stdvar_over_time(%s" + range(rangeSelector).fmt() + ")"),
   }
