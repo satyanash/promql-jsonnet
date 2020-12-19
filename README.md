@@ -23,7 +23,7 @@ promql.new("prometheus_http_requests_total")
         handler: "/api/v1/query",
     })
     .sum()
-    .delta("5m", "5m")
+    .delta(["5m","5m"])
     .build()
 ```
 
