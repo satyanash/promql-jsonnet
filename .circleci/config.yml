@@ -5,7 +5,7 @@ jobs:
       - image: mexisme/jsonnet:latest
     steps:
       - checkout
-      - run: ./jsonnet tests.jsonnet
+      - run: "/jsonnet tests.jsonnet"
 workflows:
   version: 2
   tests:
