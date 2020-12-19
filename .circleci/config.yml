@@ -16,7 +16,6 @@ jobs:
       - checkout
       - run: "apt-get update"
       - run: "apt-get -y install curl jq"
-      - run: "export PATH=$PATH:/"
       - run: "./integration_tests.sh"
 workflows:
   version: 2
