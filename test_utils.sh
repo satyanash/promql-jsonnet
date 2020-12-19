@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 function check_query(){
     local query=$1

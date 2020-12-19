@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 TEST_RUN=test_run.sh
 
@@ -8,7 +8,7 @@ TEST_COUNT=0
 rm ${TEST_RUN}
 
 cat <<EOF >> ${TEST_RUN}
-#!/bin/bash
+#!/bin/sh
 source "./test_utils.sh"
 
 EOF

@@ -14,6 +14,7 @@ jobs:
     steps:
       - checkout
       - run: "apk add --no-cache curl jq"
+      - run: "export PATH=$PATH:/"
       - run: "./integration_tests.sh"
 workflows:
   version: 2
