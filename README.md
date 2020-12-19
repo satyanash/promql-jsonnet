@@ -18,75 +18,80 @@ The corresponding usage in jsonnet would look something like this:
 local promql = import "promql.libsonnet";
 
 promql.new("prometheus_http_requests_total")
-    .withLabels({
-        code: "200",
-        handler: "/api/v1/query",
-    })
-    .sum()
-    .delta(["5m","5m"])
-    .build()
+      .withLabels({
+          code: "200",
+          handler: "/api/v1/query",
+      })
+      .sum()
+      .delta(["5m","5m"])
+      .build()
 ```
 
-## PromQL Support
-
-Below tables list out the support for the various PromQL operators and functions.
+## API Reference and PromQL Support
 
 ### Aggregation operators
 
-These support additional clauses like `by` and `without`. For eg:
+* Aggregation operators take instant vectors and return another instant vector.
+* These support following optional clauses that take a list of labels:
+  * `by` clause - `.topk(5, by=["host"])`
+  * `without` clause - `.avg(without=["handler"])`
 
-``` promql
-promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"]).build()
+Sample usage:
+``` jsonnet
+promql.new("prometheus_http_requests_total")
+      .withLabels({code:"200"})
+      .sum(by=["handler", "instance"])
+      .build()
 
-// Output: sum by (handler,instance) (prometheus_http_requests_total)
+// output: sum by (handler,instance) (prometheus_http_requests_total{code="200"})
 ```
 
-| Function                               | Support            |
-|----------------------------------------|--------------------|
-| `sum(instant-vector)`                  | :heavy_check_mark: |
-| `min(instant-vector)`                  | :heavy_check_mark: |
-| `max(instant-vector)`                  | :heavy_check_mark: |
-| `avg(instant-vector)`                  | :heavy_check_mark: |
-| `group(instant-vector)`                | :heavy_check_mark: |
-| `stddev(instant-vector)`               | :heavy_check_mark: |
-| `stdvar(instant-vector)`               | :heavy_check_mark: |
-| `count(instant-vector)`                | :heavy_check_mark: |
-| `count_values(string, instant-vector)` | :heavy_check_mark: |
-| `bottomk(scalar, instant-vector)`      | :heavy_check_mark: |
-| `topk(scalar, instant-vector)`         | :heavy_check_mark: |
-| `quantile(scalar, instant-vector)`     | :heavy_check_mark: |
+| PromQL Function                        | Jsonnet Usage                    | Support            |
+|----------------------------------------|----------------------------------|--------------------|
+| `sum(instant-vector)`                  | `.sum()`                         | :heavy_check_mark: |
+| `min(instant-vector)`                  | `.min()`                         | :heavy_check_mark: |
+| `max(instant-vector)`                  | `.max()`                         | :heavy_check_mark: |
+| `avg(instant-vector)`                  | `.avg()`                         | :heavy_check_mark: |
+| `group(instant-vector)`                | `.group()`                       | :heavy_check_mark: |
+| `stddev(instant-vector)`               | `.stddev()`                      | :heavy_check_mark: |
+| `stdvar(instant-vector)`               | `.stdvar()`                      | :heavy_check_mark: |
+| `count(instant-vector)`                | `.count()`                       | :heavy_check_mark: |
+| `count_values(string, instant-vector)` | `.count_values("my-label-name")` | :heavy_check_mark: |
+| `bottomk(scalar, instant-vector)`      | `.bottomk(5)`                    | :heavy_check_mark: |
+| `topk(scalar, instant-vector)`         | `.topk(5)`                       | :heavy_check_mark: |
+| `quantile(scalar, instant-vector)`     | `.quantile("0.99")`              | :heavy_check_mark: |
 
 ### Instant Vector Functions
 
-| Function                                                        | Support            |
-|-----------------------------------------------------------------|--------------------|
-| `abs(instant-vector)`                                           | :heavy_check_mark: |
-| `absent(instant-vector)`                                        | :heavy_check_mark: |
-| `ceil(instant-vector)`                                          | :heavy_check_mark: |
-| `clamp_max(instant-vector, scalar)`                             | :heavy_check_mark: |
-| `clamp_min(instant-vector, scalar)`                             | :heavy_check_mark: |
-| `exp(instant-vector)`                                           | :heavy_check_mark: |
-| `floor(instant-vector)`                                         | :heavy_check_mark: |
-| `histogram_quantile(scalar, instant-vector)`                    | :heavy_check_mark: |
-| `label_join(instant-vector, string, string, string...)`         | :construction:     |
-| `label_replace(instant-vector, string, string, string, string)` | :construction:     |
-| `ln(instant-vector)`                                            | :heavy_check_mark: |
-| `log10(instant-vector)`                                         | :heavy_check_mark: |
-| `log2(instant-vector)`                                          | :heavy_check_mark: |
-| `round(instant-vector, scalar)`                                 | :heavy_check_mark: |
-| `scalar(instant-vector)`                                        | :heavy_check_mark: |
-| `sort(instant-vector)`                                          | :heavy_check_mark: |
-| `sort_desc(instant-vector)`                                     | :heavy_check_mark: |
-| `sqrt(instant-vector)`                                          | :heavy_check_mark: |
-|                                                                 |                    |
-| `day_of_month(instant-vector)`                                  | :construction:     |
-| `day_of_week(instant-vector)`                                   | :construction:     |
-| `days_in_month(instant-vector)`                                 | :construction:     |
-| `hour(instant-vector)`                                          | :construction:     |
-| `minute(instant-vector)`                                        | :construction:     |
-| `month(instant-vector)`                                         | :construction:     |
-| `year(instant-vector)`                                          | :construction:     |
-| `timestamp(instant-vector)`                                     | :construction:     |
+| PromQL Function                                                 | Jsonnet Usage                 | Support            |
+|-----------------------------------------------------------------|-------------------------------|--------------------|
+| `abs(instant-vector)`                                           | `.abs()`                      | :heavy_check_mark: |
+| `absent(instant-vector)`                                        | `.absent()`                   | :heavy_check_mark: |
+| `ceil(instant-vector)`                                          | `.ceil()`                     | :heavy_check_mark: |
+| `clamp_max(instant-vector, scalar)`                             | `.clamp_max(5)`               | :heavy_check_mark: |
+| `clamp_min(instant-vector, scalar)`                             | `.clamp_min(5)`               | :heavy_check_mark: |
+| `exp(instant-vector)`                                           | `.exp()`                      | :heavy_check_mark: |
+| `floor(instant-vector)`                                         | `.floor()`                    | :heavy_check_mark: |
+| `histogram_quantile(scalar, instant-vector)`                    | `.histogram_quantile("0.90")` | :heavy_check_mark: |
+| `label_join(instant-vector, string, string, string...)`         |                               | :construction:     |
+| `label_replace(instant-vector, string, string, string, string)` |                               | :construction:     |
+| `ln(instant-vector)`                                            | `.ln()`                       | :heavy_check_mark: |
+| `log10(instant-vector)`                                         | `.log10()`                    | :heavy_check_mark: |
+| `log2(instant-vector)`                                          | `.log2()`                     | :heavy_check_mark: |
+| `round(instant-vector, scalar)`                                 | `.round(2)`                   | :heavy_check_mark: |
+| `scalar(instant-vector)`                                        | `.scalar()`                   | :heavy_check_mark: |
+| `sort(instant-vector)`                                          | `.sort()`                     | :heavy_check_mark: |
+| `sort_desc(instant-vector)`                                     | `.sort_desc()`                | :heavy_check_mark: |
+| `sqrt(instant-vector)`                                          | `.sqrt()`                     | :heavy_check_mark: |
+|                                                                 |                               |                    |
+| `day_of_month(instant-vector)`                                  |                               | :construction:     |
+| `day_of_week(instant-vector)`                                   |                               | :construction:     |
+| `days_in_month(instant-vector)`                                 |                               | :construction:     |
+| `hour(instant-vector)`                                          |                               | :construction:     |
+| `minute(instant-vector)`                                        |                               | :construction:     |
+| `month(instant-vector)`                                         |                               | :construction:     |
+| `year(instant-vector)`                                          |                               | :construction:     |
+| `timestamp(instant-vector)`                                     |                               | :construction:     |
 
 ### Range Vector Functions
 
@@ -101,32 +106,32 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"]).bui
         .build()
   ```
 
-| Function                                     | Support            |
-|----------------------------------------------|--------------------|
-| `changes(range-vector)`                      | :heavy_check_mark: |
-| `absent_over_time(range-vector)`             | :heavy_check_mark: |
-| `delta(range-vector)`                        | :heavy_check_mark: |
-| `deriv(range-vector)`                        | :heavy_check_mark: |
-| `holt_winters(range-vector, scalar, scalar)` | :heavy_check_mark: |
-| `idelta(range-vector)`                       | :heavy_check_mark: |
-| `increase(range-vector)`                     | :heavy_check_mark: |
-| `irate(range-vector)`                        | :heavy_check_mark: |
-| `predict_linear(range-vector, scalar)`       | :heavy_check_mark: |
-| `rate(range-vector)`                         | :heavy_check_mark: |
-| `resets(range-vector)`                       | :heavy_check_mark: |
-|                                              |                    |
-| `avg_over_time(range-vector)`                | :heavy_check_mark: |
-| `min_over_time(range-vector)`                | :heavy_check_mark: |
-| `max_over_time(range-vector)`                | :heavy_check_mark: |
-| `sum_over_time(range-vector)`                | :heavy_check_mark: |
-| `count_over_time(range-vector)`              | :heavy_check_mark: |
-| `quantile_over_time(scalar, range-vector)`   | :heavy_check_mark: |
-| `stddev_over_time(range-vector)`             | :heavy_check_mark: |
-| `stdvar_over_time(range-vector)`             | :heavy_check_mark: |
+| PromQL Function                              | Jsonnet Usage                              | Support            |
+|----------------------------------------------|--------------------------------------------|--------------------|
+| `changes(range-vector)`                      | `.changes(["1m","1m"])`                    | :heavy_check_mark: |
+| `absent_over_time(range-vector)`             | `.absent_over_time(["1m","1m"])`           | :heavy_check_mark: |
+| `delta(range-vector)`                        | `.delta(["1m","1m"])`                      | :heavy_check_mark: |
+| `deriv(range-vector)`                        | `.deriv(["1m","1m"])`                      | :heavy_check_mark: |
+| `holt_winters(range-vector, scalar, scalar)` | `.holt_winters(["1m","1m"], "0.5", "0.5")` | :heavy_check_mark: |
+| `idelta(range-vector)`                       | `.idelta(["1m","1m"])`                     | :heavy_check_mark: |
+| `increase(range-vector)`                     | `.increase(["1m","1m"])`                   | :heavy_check_mark: |
+| `irate(range-vector)`                        | `.irate(["1m","1m"])`                      | :heavy_check_mark: |
+| `predict_linear(range-vector, scalar)`       | `.predict_linear(["1m","1m"], 60)`         | :heavy_check_mark: |
+| `rate(range-vector)`                         | `.rate(["1m","1m"])`                       | :heavy_check_mark: |
+| `resets(range-vector)`                       | `.resets(["1m","1m"])`                     | :heavy_check_mark: |
+|                                              |                                            |                    |
+| `avg_over_time(range-vector)`                | `.avg_over_time(["1m","1m"])`              | :heavy_check_mark: |
+| `min_over_time(range-vector)`                | `.min_over_time(["1m","1m"])`              | :heavy_check_mark: |
+| `max_over_time(range-vector)`                | `.max_over_time(["1m","1m"])`              | :heavy_check_mark: |
+| `sum_over_time(range-vector)`                | `.sum_over_time(["1m","1m"])`              | :heavy_check_mark: |
+| `count_over_time(range-vector)`              | `.count_over_time(["1m","1m"])`            | :heavy_check_mark: |
+| `quantile_over_time(scalar, range-vector)`   | `.quantile_over_time("0.90", ["1m","1m"])` | :heavy_check_mark: |
+| `stddev_over_time(range-vector)`             | `.stddev_over_time(["1m","1m"])`           | :heavy_check_mark: |
+| `stdvar_over_time(range-vector)`             | `.stdvar_over_time(["1m","1m"])`           | :heavy_check_mark: |
 
 ### Miscellaneous Functions
 
-| Function         | Support        |
+| PromQL Function  | Support        |
 |------------------|----------------|
 | `vector(scalar)` | :construction: |
 | `time()`         | :construction: |
