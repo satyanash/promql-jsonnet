@@ -54,7 +54,7 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 | `count_values(string, instant-vector)` | :heavy_check_mark: |
 | `bottomk(scalar, instant-vector)`      | :heavy_check_mark: |
 | `topk(scalar, instant-vector)`         | :heavy_check_mark: |
-| `quantile(scalar, instant-vector)`     | :construction:     |
+| `quantile(scalar, instant-vector)`     | :heavy_check_mark: |
 
 ### Instant Vector Functions
 

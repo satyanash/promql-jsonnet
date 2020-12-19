@@ -43,6 +43,7 @@ local range(interval, resolution="") = {
     count_values(labelName, by=[], without=[]):: self.withFuncTemplate("count_values" + self.aggr_clause(by, without) + "(\"" + labelName + "\", %s)"),
     bottomk(k, by=[], without=[]):: self.withFuncTemplate("bottomk" + self.aggr_clause(by, without) + "(" + k + ", %s)"),
     topk(k, by=[], without=[]):: self.withFuncTemplate("topk" + self.aggr_clause(by, without) + "(" + k + ", %s)"),
+    quantile(q, by=[], without=[]):: self.withFuncTemplate("quantile" + self.aggr_clause(by, without) + "(" + q + ", %s)"),
 
     // Instant Vector Functions
     abs():: self.withFuncTemplate("abs(%s)"),

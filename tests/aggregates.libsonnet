@@ -132,4 +132,16 @@ local promql = import "../promql.libsonnet";
   ["it supports aggregation function `topk` with a `without` clause",
     promql.new("prometheus_notifications_queue_capacity").withLabels({job:"prometheus"}).topk(5, without=["instance"]).build(),
     'topk without (instance) (5, prometheus_notifications_queue_capacity{job="prometheus"})'],
+
+  ["it supports aggregation function `quantile`",
+    promql.new("scrape_duration_seconds").withLabels({job:"prometheus"}).quantile("0.99").build(),
+    'quantile(0.99, scrape_duration_seconds{job="prometheus"})'],
+
+  ["it supports aggregation function `quantile` with a `by` clause",
+    promql.new("scrape_duration_seconds").withLabels({job:"prometheus"}).quantile("0.99", by=["instance"]).build(),
+    'quantile by (instance) (0.99, scrape_duration_seconds{job="prometheus"})'],
+
+  ["it supports aggregation function `quantile` with a `without` clause",
+    promql.new("scrape_duration_seconds").withLabels({job:"prometheus"}).quantile("0.99", without=["instance"]).build(),
+    'quantile without (instance) (0.99, scrape_duration_seconds{job="prometheus"})'],
 ]
