@@ -9,7 +9,7 @@ Usage is very natural, if you know what you're looking to construct.
 For example, let's construct a PromQL for a counter:
 
 ``` promql
-delta(sum(your_application_http_requests{environment="staging",success="true"})[5m:5m])
+delta(sum(prometheus_http_requests_total{code="200",handler="/api/v1/query"})[5m:5m])
 ```
 
 The corresponding usage in jsonnet would look something like this:
@@ -17,10 +17,10 @@ The corresponding usage in jsonnet would look something like this:
 ``` jsonnet
 local promql = import "promql.libsonnet";
 
-promql.new("your_application_http_requests")
+promql.new("prometheus_http_requests_total")
     .withLabels({
-        environment: "staging",
-        success: "true",
+        code: "200",
+        handler: "/api/v1/query",
     })
     .sum()
     .delta("5m", "5m")
@@ -36,9 +36,9 @@ Below tables list out the support for the various PromQL operators and functions
 These support additional clauses like `by` and `without`. For eg:
 
 ``` promql
-promql.new("some_metric_name").sum(by=["host", "version"])
+promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 
-// Output: sum by (host,version) (some_metric_name)
+// Output: sum by (handler,instance) (prometheus_http_requests_total)
 ```
 
 | Function                       | Support            |
