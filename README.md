@@ -107,6 +107,4 @@ promql.new("prometheus_http_requests_total").sum(by=["handler", "instance"])
 
 ## Running the tests
 
-``` shell
-jsonnet tests.jsonnet
-```
+* Unit Tests: `jsonnet unit-tests.jsonnet`
