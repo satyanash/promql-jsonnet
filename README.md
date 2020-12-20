@@ -47,6 +47,33 @@ The general steps are as follows:
    grafana.prometheus.target(expr=http_success_query, ...)
    ```
 
+### Label Matchers
+* There are two ways to specify label matchers.
+* If you're using the `=` equals matcher, then you can use the shorter `.withLabels({...})` function to specify multiple filters:
+  ``` jsonnet
+  promql.new("prometheus_http_requests_total")
+        .withLabels({success:"true", handler:"/api/v1/query"});
+        .build()
+  // output: prometheus_http_requests_total{success="true",handler="/api/v1/query"}
+  ```
+* If you need the other matchers like `!=`, `=~` or `!~` you need to use the `.withLabel({key,op,value})` function.
+  ``` jsonnet
+  promql.new("prometheus_http_requests_total")
+        .withLabel({key:"success", op: "=", value:"true"});
+        .withLabel({key:"handler", op: "=~", value:"/api/v1/"});
+        .withLabel({key:"method",  op: "!=", value:"GET"});
+        .build()
+  // output: prometheus_http_requests_total{success="true",handler=~"/api/v1/",method!="GET"}
+  ```
+* You can also mix and match the two as needed:
+  ``` jsonnet
+  promql.new("prometheus_http_requests_total")
+        .withLabels({success:"true", handler:"/api/v1/query"});
+        .withLabel({key:"method", op: "!=", value:"GET"});
+        .build()
+  // output: prometheus_http_requests_total{success="true",handler="/api/v1/query",method!="GET"}
+  ```
+
 ### Aggregation operators
 
 * Aggregation operators like `sum`, `avg` etc. take instant vectors and return another instant vector.
