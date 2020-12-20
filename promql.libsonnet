@@ -6,13 +6,16 @@ local range(rangeSelector) = {
 
 {
   new(metricName):: {
-    labels:: {},
+    labels:: [],
     withLabels(labels):: self {
-      labels+: labels
+      labels+: [{ key: k, op: "=", value: labels[k] } for k in std.objectFields(labels)]
     },
-    labelString():: std.join(',', [std.format('%s="%s"', [k, self.labels[k]]) for k in std.objectFields(self.labels)]),
-    labelExpr():: if self.labels == {} then "" else std.format("{%s}", self.labelString()),
+    withLabel(label):: self {
+      labels+: [label]
+    },
 
+    labelString():: std.join(',', [std.format('%s%s"%s"', [label.key, label.op, label.value]) for label in self.labels]),
+    labelExpr():: if self.labels == [] then "" else std.format("{%s}", self.labelString()),
 
     functionTemplates:: [],
     withFuncTemplate(funcTemplate):: self {
